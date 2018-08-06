@@ -82,9 +82,28 @@ Configuration VirtualEdge {
                 Invoke-WebRequest -useb "https://download.docker.com/win/stable/19098/Docker%20for%20Windows%20Installer.exe" -o $dockerForWindowsPath
                 Start-Process -FilePath $dockerForWindowsPath -ArgumentList "install --quiet" -Wait
 
+                Get-LocalUser |? {$_.Enabled} | Add-LocalGroupMember -Group "docker-users"
+
                 $global:DSCMachineStatus = 1;
 
                 "Ok" | Out-File -FilePath "C:\DSC\Checkpoint\dockerforwindows.ok"
+            }
+        }
+        Script DockerStartup {
+            GetScript = {            
+                return @{            
+                    Result = "Ok"          
+                }            
+            }
+            TestScript = {            
+                return Test-Path -Path 'C:\DSC\Checkpoint\dockerstartup.ok'    
+            }
+            SetScript = {
+                $ProgressPreference = 'SilentlyContinue'
+                
+                Start-Process -FilePath "C:\Program Files\Docker\Docker\DockerCli.exe" -ArgumentList "-SwitchLinuxEngine" -Wait
+
+                "Ok" | Out-File -FilePath "C:\DSC\Checkpoint\dockerstartup.ok"
             }
         }
         Script IoTEdge {
