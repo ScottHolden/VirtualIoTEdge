@@ -1,6 +1,11 @@
 Configuration VirtualEdge {
     Import-DscResource -ModuleName PsDesiredStateConfiguration
     Node "localhost" {
+        Settings
+        {
+            RefreshMode = 'Push'
+            RebootNodeIfNeeded = $true
+        }
         WindowsFeature HyperV {
             Ensure = "Present"
             Name   = "Hyper-V"
