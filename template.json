@@ -29,7 +29,7 @@
         "vmId": "[resourceId('Microsoft.Compute/virtualMachines', variables('vmName'))]",
         "vmComputerName": "[variables('baseName')]",
 
-        "vmDSCName": "[concat(parameters('vmName'),'/', 'DSC')]",
+        "vmDSCName": "[concat(variables('vmName'),'/', 'DSC')]",
         "vmDSCConfigurationFunction": "VirtualEdgeDSC.ps1\\VirtualEdge",
 
         "vnetName": "[concat(variables('baseName'), variables('entropy'))]",
@@ -184,7 +184,7 @@
         },
         {
             "type": "Microsoft.Compute/virtualMachines/extensions",
-            "name": "[concat(parameters('vmName'),'/', 'DSC')]",
+            "name": "[variables('vmDSCName')]",
             "apiVersion": "2015-05-01-preview",
             "location": "[resourceGroup().location]",
             "dependsOn": [
