@@ -18,7 +18,7 @@
         },
         "vmDSCModule": {
             "type": "string",
-            "defaultValue": "https://github.com/ScottHolden/VirtualIoTEdge/releases/download/v1.2/VirtualEdgeDSC.zip"
+            "defaultValue": "https://github.com/ScottHolden/VirtualIoTEdge/releases/download/v1.3/VirtualEdgeDSC.zip"
         }
     },
     "variables": {

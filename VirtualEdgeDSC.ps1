@@ -1,7 +1,7 @@
 Configuration VirtualEdge {
     Import-DscResource -ModuleName PsDesiredStateConfiguration
     Node "localhost" {
-        Settings
+        LocalConfigurationManager
         {
             RefreshMode = 'Push'
             RebootNodeIfNeeded = $true
