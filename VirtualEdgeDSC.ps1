@@ -186,7 +186,7 @@ Configuration VirtualEdge {
                 $ipAddress = @(Get-NetAdapter -Name *DockerNAT* | Get-NetIPAddress -AddressFamily IPv4)[0].IpAddress
                 $hostname = $env:ComputerName
 
-                [Environment]::SetEnvironmentVariable("IOTEDGE_HOST", "http://$($ipAddress):15580")
+                [Environment]::SetEnvironmentVariable("IOTEDGE_HOST", "http://$($ipAddress):15580", [System.EnvironmentVariableTarget]::Machine)
 
                 $config = Get-Content -Path $configFilePath -Raw
                 $config = $config.Replace("<GATEWAY_ADDRESS>", $ipAddress)
