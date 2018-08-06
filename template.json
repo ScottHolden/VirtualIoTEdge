@@ -18,7 +18,7 @@
         },
         "vmDSCModule": {
             "type": "string",
-            "defaultValue": "TO BE FILLED"
+            "defaultValue": "https://github.com/ScottHolden/VirtualIoTEdge/releases/download/v1.0/VirtualEdgeDSC.zip"
         }
     },
     "variables": {
@@ -30,7 +30,6 @@
         "vmComputerName": "[variables('baseName')]",
 
         "vmDSCName": "[concat(parameters('vmName'),'/', 'DSC')]",
-        "vmDSCModule": "",
         "vmDSCConfigurationFunction": "VirtualEdgeDSC.ps1\\VirtualEdge",
 
         "vnetName": "[concat(variables('baseName'), variables('entropy'))]",
@@ -197,11 +196,8 @@
               "typeHandlerVersion": "2.19",
               "autoUpgradeMinorVersion": true,
               "settings": {
-                "ModulesUrl": "[variables('vmDSCModule')]",
-                "ConfigurationFunction": "[variables('vmDSCConfigurationFunction')]",
-                "Properties": {
-                  "Potato": "Potato"
-                }
+                "ModulesUrl": "[parameters('vmDSCModule')]",
+                "ConfigurationFunction": "[variables('vmDSCConfigurationFunction')]"
               },
               "protectedSettings": null
             }
