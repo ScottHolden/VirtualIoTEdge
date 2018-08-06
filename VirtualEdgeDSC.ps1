@@ -24,7 +24,7 @@ Configuration VirtualEdge {
                 return (Get-WindowsOptionalFeature -Online -FeatureName "Microsoft-Hyper-V").State -eq "Enabled"
             }
             SetScript = {
-                Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
+                Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Hyper-V" -All
 
                 $global:DSCMachineStatus = 1;
             }
@@ -101,7 +101,9 @@ Configuration VirtualEdge {
             SetScript = {
                 $ProgressPreference = 'SilentlyContinue'
                 
-                Start-Process -FilePath "C:\Program Files\Docker\Docker\DockerCli.exe" -ArgumentList "-SwitchLinuxEngine" -Wait
+                Start-Process -FilePath "C:\Program Files\Docker\Docker\DockerCli.exe" -ArgumentList "-SwitchLinuxEngine"
+
+                Start-Sleep -Seconds 240
 
                 "Ok" | Out-File -FilePath "C:\DSC\Checkpoint\dockerstartup.ok"
             }
@@ -200,7 +202,6 @@ Configuration VirtualEdge {
                         throw "Timeout error!"
                     }
                 }
-                Start-Sleep -Seconds 10
 
                 $ipAddress = @(Get-NetAdapter -Name *DockerNAT* | Get-NetIPAddress -AddressFamily IPv4)[0].IpAddress
                 $hostname = $env:ComputerName
